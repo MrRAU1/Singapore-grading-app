@@ -1,0 +1,85 @@
+print("Singapore Grading System")
+
+
+# Ask if the user is a student or teacher
+role = input("Are you a student or a teacher? (Enter 'student' or 'teacher'): ").lower()
+
+
+# Loop for student or teacher input
+if role == 'student':
+   print("\nWelcome, student! Let's get started with the grading system.")
+elif role == 'teacher':
+   print("\nWelcome, teacher! You can help students with their grades.")
+else:
+   print("\nInvalid input. Please restart the program and enter 'student' or 'teacher'.")
+   exit()
+
+
+while True:
+   # Input
+   subject = input("\nEnter subject name (or type 'exit' to quit): ")
+   if subject.lower() == "exit":
+       print("Thanks for using the grading system. Goodbye!")
+       break
+
+
+   try:
+       max_score = float(input("Enter maximum score for that subject: "))
+       got_score = float(input("Enter score the student got for that subject: "))
+   except ValueError:
+       print("Please enter valid numbers for the scores.")
+       continue
+
+
+   # Fail-safe: Check if the got score is greater than the max score
+   if got_score > max_score:
+       print("That doesn't make sense! The score cannot exceed the maximum score. Please try again.")
+       continue
+
+
+   # Calculate percentage
+   percentage = (got_score / max_score) * 100
+
+
+   # Determine AL grade
+   if percentage >= 90:
+       grade = "AL1"
+   elif percentage >= 85:
+       grade = "AL2"
+   elif percentage >= 80:
+       grade = "AL3"
+   elif percentage >= 75:
+       grade = "AL4"
+   elif percentage >= 65:
+       grade = "AL5"
+   elif percentage >= 45:
+       grade = "AL6"
+   elif percentage >= 20:
+       grade = "AL7"
+   else:
+       grade = "AL8"
+
+
+   # Final result message
+   if role == 'student':
+       print(f"\nYou got {got_score} over {max_score}, which is {percentage:.2f}% — and in Singapore grading terms, that is {grade}.")
+   elif role == 'teacher':
+       print(f"\nThe student got {got_score} over {max_score}, which is {percentage:.2f}% — and in Singapore grading terms, that is {grade}.")
+
+
+   # Friendly feedback
+   if role == 'student':
+       if grade in ["AL1", "AL2", "AL3"]:
+           print("Excellent job! You're among the top performers! Keep it up!")
+       elif grade in ["AL4", "AL5", "AL6"]:
+           print("You're doing alright, but there's room to improve. Keep trying your best!")
+       else:
+           print("Don't be discouraged. Everyone starts somewhere — reflect, revise, and come back stronger!")
+   elif role == 'teacher':
+       if grade in ["AL1", "AL2", "AL3"]:
+           print("Well done! The student is performing excellently.")
+       elif grade in ["AL4", "AL5", "AL6"]:
+           print("The student is doing okay, but there’s room for improvement. Encourage them to do better.")
+       else:
+           print("The student needs help. Suggest some study strategies and support for improvement.")
+
